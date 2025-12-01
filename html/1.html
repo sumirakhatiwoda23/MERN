@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css</title>
+</head>
+<style>
+
+    *{
+        /* color: red; sabai ekaixoti rato vanna */
+        margin: 0;
+        padding: 0; 
+    }
+    /* h1{
+        color: pink;
+    } */
+
+
+
+
+ /* direct child select */
+    .box> h1{     
+        color: red;
+    }
+    button:hover{
+        background-color: red;
+    }
+/*     
+    button:enabled{
+        color: black;
+    } */
+
+    li:first-child{
+        color: red;
+    }
+/*     
+    li:last-child{
+        color: brown;
+    } */
+
+    li:nth-child(3){
+        color: green;
+    }
+    li:nth-child(even){
+        color: pink;
+    }
+    .para::before{
+        content:"Highlight";
+        color: red;
+        font-size: 20px;
+         /* display: block;
+    margin-bottom: 15px; */
+    }
+.para::after{
+    content: "Highlight";
+    color: red;
+    font-size: 20px;
+     display: block;
+     margin-top: 20px;
+    margin-bottom: 15px;
+
+   
+}
+</style>
+
+
+<body>
+<div class="para">
+    <p>Lorem ipsum dolor sit amet
+         consectetur adipisicing elit. 
+         Ex error nam praesentium aliquam ipsum quod impedit deserunt explicabo tempora quo.</p>
+
+</div>
+
+
+    <ol>
+        <li>hello1</li>
+        <li>hello2</li>
+        <li>hello3</li>
+        <li>hello4</li>
+    </ol>
+    <button>Click me</button>
+
+    <div class="box">
+        
+        <h1 >hello jee</h1>   <!-- child -->
+        <div>
+            <h1>sello jee</h1>   <!-- grand child -->
+            <p>Lorem ipsum dolor sit amet.
+            </p>
+
+            
+        </div>
+
+
+
+
+
+    </div>
+    
+<!-- 
+<h1>hasjhab</h1>
+<p>Lorem ipsum dolor sit amet.</p> -->
+
+
+
+
+</body>
+
+
+
+
+
+
+</html>
