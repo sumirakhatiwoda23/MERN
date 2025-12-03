@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <style>
+        .outerdiv {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            border: black 1px solid;
+        }
+        .inner1, .inner2, .inner3 {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+        }
+        .inner1 {
+            background-color: red;
+            top: 0;
+            left: 0;
+        }
+        .inner2 {
+            background-color: blue;
+            top: 150px;
+            left: 150px;
+        }
+        .inner3 {
+            background-color: green;
+            top: 300px;
+            left: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="outerdiv">
+        <div class="inner1"></div>
+        <div class="inner2"></div>
+        <div class="inner3"></div>
+    </div>
+</body>
+</html>
