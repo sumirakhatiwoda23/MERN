@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            padding: 10px;
+        }
+        .box{
+            height: 200px;
+            width: 200px;
+            background-color: red;
+            /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+            animation: anim 4s cubic-bezier(0.19, 1, 0.22, 1) 0s infinite alternate-reverse;
+            /* direction fill-mode; */
+        }
+        @keyframes anim{
+          10%{
+            background-color: red;
+
+          } 
+          20%{
+            border-radius: 100px;
+          } 
+          40%{
+            background-color: black;
+            transform: translateY(30px);
+          }
+          50%{
+            background-color: green;
+            transform: rotate(45deg);
+          }
+          70%{
+            background-color: aquamarine;
+          }
+          100%{
+            background-color: brown;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+    </div>
+ 
+</body>
+</html>
