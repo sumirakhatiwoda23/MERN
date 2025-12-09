@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        
+        }
+        body{
+            padding: 20px;
+        }
+        .toast-box{
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+             gap: 20px;
+             padding: 10px;
+             max-width: 470;
+        }
+        .circle{
+            height:50px;
+            width: 50px;
+            border-radius: 50%;
+            background-color: #e6e7eb;
+        }
+        .info{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 450px;
+        }
+        .first{
+            display: flex;
+            gap: 10px;
+        }
+        .second{
+        display: flex;
+        gap: 10px;
+      
+        }
+        .bx{
+            width: 70px;
+            height: 10px;
+            border-radius: 20px;
+            background-color:  #e6e7eb;
+        }
+       
+        
+        .bx2{
+            width: 100px;
+             height: 10px;
+            border-radius: 20px;
+        }
+        .button{
+           border: 1px solid black; 
+           
+           padding: 15px 15px;
+           background-color: white;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="toast-box">
+
+
+        <div class="circle">
+
+        </div>
+      
+        <div class="info">
+
+
+            <div class="first">
+                <div class="bx bx1"></div>
+                <div class="bx bx2"></div>
+                <div class="bx bx3"></div>
+            </div>
+
+              <div class="second">
+                <div class="bx bx4"></div>
+                <div class="bx bx5"></div>
+              </div>
+
+        </div>
+
+
+<button>Apply</button>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        
+        }
+        body{
+            padding: 10px;
+        }
+
+        section{
+            max-width:800px ;
+            /* border: 1px solid black; */
+        }
+        .images{
+            /* display flex garda autai line ma aayo */
+            display: flex;
+            gap: 10px;
+        }
+        img{
+            border-radius: 10px;
+        }
+        .img1{
+            width: 40%;
+        }
+         .img2{
+            width: 30%;
+        }
+         .img3{
+            width: 30%;
+        }
+        .detail{
+            margin-top: 20px;
+        }
+        .check{
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        button{
+            border: none;
+            background-color:tomato;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+
+    <div class="images">
+
+        <img class = "img1" src="https://tailwindcss.com/_next/static/media/responsive-1.fd2e9248.png" alt="">
+        <img class = "img2" src="https://tailwindcss.com/_next/static/media/responsive-2.8cfea49d.png" alt="">
+        <img class = "img3" src="https://tailwindcss.com/_next/static/media/responsive-3.e7467feb.png" alt="">
+          </div>
+
+
+
+
+            <div class="detail">
+<h3>Entire house</h3>
+   <div class="check">
+    <h1>Beach House on Lake Huron</h1>
+    <button>Check availability</button>
+   </div>
+          <p>This sunny and spacious room is for those traveling light and looking for a comfy and cozy place to lay their head for a night...</p>
+             </div>
+
+
+
+
+    </section>
+</body>
+</html>

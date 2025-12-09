@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css Flex</title>
+    <style>
+/* flex and grid use garney  box ma autai tarika le rakheny  */
+/* grid xai vertically and horizontally ni milauney */
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.item1{
+    background-color: red;
+   
+}
+.item2{
+    background-color: blue;
+}
+.item3{
+    background-color: aqua;
+}
+.item4{
+    background-color:violet ;
+}
+.item5{
+    background-color: tomato;
+}
+.item6{
+    background-color: yellowgreen;
+  
+}
+body{
+    padding: 10px;
+
+}
+.flexbox{
+    max-width: 500px;
+ 
+    border: 1px solid black;
+    /* autai line ma lyuan axai display: flex use garinxa */
+    display: flex;
+    /* justofy content le xai typ content kata bata janxa vanera decide garxa */
+    justify-content:center;
+   /* jasare box 1 ma dherai content vayera aru box aru ni lambinxan teslai nalambyauna ko lagi align -items use garxam hamle */
+   /* align-items: center; */
+   align-items: flex-end;
+
+}
+
+    </style>
+</head>
+<body>
+    <div class="flexbox">
+        <div class="item item1">
+        <h3>box1</h3>
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam et dolorum dignissimos in velit repudiandae sunt similique recusandae architecto porro?</p>         </div>
+        <div class="item item2">
+        <h3>box2</h3>
+        </div>
+        <div class="item item3">
+        <h3>box3</h3>
+        </div>
+        <div class="item item4">
+        <h3>box4</h3>
+        </div>
+        <div class="item item5">
+        <h3>box5</h3>
+        </div>
+        <div class="item item6">
+        <h3>box6</h3>
+        </div>
+ </div>
+    
+    </body>
+    </html>

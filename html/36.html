@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css Flex</title>
+    <style>
+/* flex and grid use garney  box ma autai tarika le rakheny  */
+/* grid xai vertically and horizontally ni milauney */
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.item1{
+    background-color: red;
+    /* aba vertically kunai auta box lai tala lyauna xa vane xai , yesma xai 
+    hamle align self use garna*/
+    align-self: flex-start;
+}
+.item2{
+    background-color: blue;
+}
+.item3{
+    background-color: aqua;
+}
+.item4{
+    background-color:violet ;
+}
+.item5{
+    background-color: tomato;
+}
+.item6{
+    background-color: yellowgreen;
+    align-self: flex-end;
+}
+body{
+    padding: 10px;
+
+}
+.flexbox{
+    max-width: 500px;
+    height: 400px;
+    border: 1px solid black;
+    /* autai line ma lyuan axai display: flex use garinxa */
+    display: flex;
+    /* justofy content le xai typ content kata bata janxa vanera decide garxa */
+    justify-content:center;
+    /* 
+    end
+    start
+    there are other many.......*/
+    
+    /* box lai sabai centre ma lyaune kaam xai align centre le garxa */
+    align-items: center;
+    /* box haru bich gap diney */
+    /* gap: 50px; */
+    
+
+}
+
+    </style>
+</head>
+<body>
+    <div class="flexbox">
+        <div class="item item1">
+        <h3>box1</h3>
+         </div>
+        <div class="item item2">
+        <h3>box2</h3>
+        </div>
+        <div class="item item3">
+        <h3>box3</h3>
+        </div>
+        <div class="item item4">
+        <h3>box4</h3>
+        </div>
+        <div class="item item5">
+        <h3>box5</h3>
+        </div>
+        <div class="item item6">
+        <h3>box6</h3>
+        </div>
+ </div>
+    
+    </body>
+    </html>

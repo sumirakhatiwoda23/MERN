@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css Grid</title>
+    <!-- hami yesma grid use garxam jasma xai horitzontal and vertical nai use hunxa -->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+body{
+    padding: 20px;
+}
+.grid-box{
+    max-width: 600px;
+    height: 300px;
+    border: 1px solid black;
+    display: grid;
+    gap: 10px;
+   /* fr use garney aba  */
+    /* grid-template-columns: 1fr 5fr 1fr; */
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows: 100px 100px;
+
+
+}
+.item1{
+    background-color: red;
+    grid-row: span 3;
+    /* grid-row: 2/3;
+    grid-column: 3/4; */
+   /* grid-column: span 2; */
+}
+.item2{
+    background-color: aquamarine ;
+    grid-column: span 2;
+}
+.item3{
+    background-color: yellow;
+    /* grid-row: span 2; */
+}
+.item4{
+    background-color: violet;
+}
+.item5{
+    background-color: steelblue;
+}
+.item6{
+    background-color: green;
+    grid-row: span 2;
+}
+.item7{
+    background-color: brown;
+}
+.item8{
+    background-color: pink;
+}
+    </style>
+</head>
+<body>
+<div class="grid-box">
+   <div class=" item item1">
+    <h3>Box1</h3>
+
+   </div>
+    <div class="item item2">
+   <h3>Box2</h3>
+    </div>
+    <div class="item item3">
+   <h3>Box3</h3>
+    </div>
+    <div class="item item4">
+   <h3>Box4</h3>
+    </div>
+    <div class="item item5">
+   <h3>Box5</h3>
+    </div>
+    <div class="item item6">
+   <h3>Box6</h3>
+    </div>
+    <div class="item item7">
+   <h3>Box7</h3>
+    </div>
+    <div class="item item8">
+   <h3>Box8</h3>
+    </div>
+</div>
+    
+</body>
+</html>
