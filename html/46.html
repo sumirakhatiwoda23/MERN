@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft</title>
+<!-- look at 47 wala -->
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        padding: 0 45px;
+    }
+    header{
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .left{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .right{
+        display: flex;
+        gap: 20px;
+
+    }
+    nav{
+        display: flex;
+        gap: 20px;
+    }
+
+    a{
+        text-decoration: none;
+        color: #535353
+    
+    }
+    a:hover{
+        text-decoration: underline 3px solid;
+        text-underline-offset: 4px;
+    }
+    .hero{
+        height: 200px;
+        /* background-color: red; */
+        background-image: url('https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/gldn-CP-Windows11-GlobalLaunch?wid=3840&hei=1600&fmt=jpeg&qlt=90&fit=constrain');
+
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+     .info h2{
+        font-size: 2.5rem;
+     }
+     .deals{
+        padding: 10px 20px;
+        font-weight: 600;
+     }
+     .ai{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        margin:20px 0 ;
+        border-radius: 10px;
+
+
+
+     }
+     img{
+        width: 100%;
+        border-radius: 10px;
+     }
+
+@media(max-width:880px)
+/* tyo icon lai 640px huda xai hatauney */
+{
+    .hero{
+        height: auto;
+        flex-direction: column-reverse;
+        padding-bottom: 20px;
+        
+    }
+    }
+@media(max-width:640px)
+/* tyo icon lai 640px huda xai hatauney */
+{
+    .right{
+        display: none;
+    }
+    body{
+        padding: 0 20px;
+    }
+}
+@media(max-width:544px)
+/* tyo icon lai 640px huda xai hatauney */
+{
+    .left{
+flex-direction: column;  
+  }
+}
+@media(max-width:528px)
+/* tyo icon lai 640px huda xai hatauney */
+{
+    .info{
+        text-align: center;
+      padding: 0 20px;
+    }
+    
+}
+
+    
+
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+
+
+
+</head>
+
+
+
+
+<body>
+    
+<header>
+<div class="left">
+    <div class="logo"></div>
+    <img style="height: 23px;" src="image/logo.png" alt="logo">
+    <nav>
+   <a href="">Microsoft 365</a>
+   <a href="">Teams</a>
+   <a href="">Copilot</a>
+   <a href="">Windows</a>
+   <a href="">Surface</a>
+   <a href="">Xbox</a>
+   <a href="">Cyber Week Deals</a>
+   <a href="">Small Business</a>
+   <a href="">Support </a>
+    </nav>
+</div>
+
+<div class="right">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-cart-shopping"></i>
+</div>
+
+
+</header>
+
+<section class="hero">
+<div class="info">
+    <h2>Cyber Week is here</h2>
+    <p style="margin: 10px 0;">Don't miss your chance to save on select Surface,Xbox,and more</p>
+    <button class="deals">
+        Shope deals
+
+    </button>
+
+
+
+
+</div>
+
+<div class="hero-image">
+    <img style="height: 200px;"
+    src="https://saudewala.in/cdn/shop/collections/Laptop.jpg?v=1732216115" alt="">
+    </div>
+
+</section>
+
+<section class="stories">
+
+    <div class="ai">
+    <div>
+        <h2>Protecting biodiversity with AI</h2>
+        <p>Microsoft's AI for Good Lab created Project SPARROW to observe wildlife in remote locations.</p>
+      <div>
+        <button class="learn">Learn more</button>
+      </div>
+    </div>
+   
+    <div>
+        <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Card-Horizontal-AI-Project-Sparrow?resMode=sharp2&op_usm=1.5,0.65,15,0&qlt=85" alt="">
+    </div>
+    
+    </div>
+  
+
+</section>
+
+
+
+
+
+
+
+
+</body>
+</html>
