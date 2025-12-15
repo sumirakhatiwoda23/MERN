@@ -1,27 +1,55 @@
-
-// 3rd class
-
-
-
+// console.log("hello sumira")
+// fullName="sumira"
+// console.log(fullName)
 
 
-
-// console.log(Math.PI);
-// console.log(Math.sqrt(4));
-// console.log(Math.max(11,22,33,2));
-// console.log(Math.pow(2,3));
+// x=null;
+// y=undefined;
+// console.log(x);
 
 
+// let Sname="sumira";
+// console.log(Sname);
 
-const rating=7.99;
-// yesle badauxa
-console.log(Math.ceil(rating));  
-// yesle kei gardaina point harauxa 
-console.log(Math.floor(rating));
-// yesle roud off garxa
-console.log(Math.round(rating));
+// let Sname;
+// Sname="Anuja";
+// console.log(Sname);
 
-// const random=Math.floor(Math.random()*5)+1;
-// console.random(random);
-const random = Math.floor(Math.random() * 5) + 1;
-console.log(random);
+// const Sname;     no const decalare agadi
+// Sname="Anuja";
+// console.log(Sname);
+
+
+// {
+//     let a=10;
+//     console.log(a);
+
+// }
+// {
+//     let a=25;
+//     console.log(a);
+// }
+
+
+// data types
+
+// let a=25;
+// console.log( typeof a);
+
+// let x=BigInt("1234");
+// console.log(typeof x);
+// console.log( x);
+
+
+
+// non primitive datatypes
+// objects
+
+const student ={
+    FullName:"Sumira Khatiwoda",
+age: 24,
+cgpa:6.8,
+
+};
+student["age"]=student["age"]+1;
+console.log(student["age"]);
