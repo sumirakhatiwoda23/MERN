@@ -17,3 +17,11 @@ const greets=()=>{
 }
 greetPerson();
 greets();
+
+
+
+// function greetPerson() {
+//   for (let i = 0; i < 5; i++) {
+//     console.log("hello sumirra");
+//   }
+// }
