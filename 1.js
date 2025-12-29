@@ -6,7 +6,9 @@
 
 
 
-let personName="hari"
-const type="good boy"
+// let personName="hari"
+// const type="good boy"
 
-console.log(personName.concat(" is a ").concat(type));
+// console.log(personName.concat(" is a ").concat(type));
+
+
