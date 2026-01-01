@@ -15,10 +15,12 @@ const greets = (func) => {
   func(90);
 }
 
-const greeting = () => {
-  console.log('hello jee');
-}
+// const greeting = () => {
+//   console.log('hello jee');
+// }
 
-greets((a) => {
-  console.log(`hello  ${a}`)
-});
+
+greets((a)=>{
+  console.log(`hello ${a}`)
+}
+)

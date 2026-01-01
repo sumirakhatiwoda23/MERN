@@ -1,4 +1,2 @@
-={
-//     id:1,
-//     name:"ram"
-// }
+ing.split("");
+console.log(n);

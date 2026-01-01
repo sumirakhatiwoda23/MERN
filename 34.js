@@ -29,19 +29,19 @@
 
 
 
-const persons={
-    name:"Sumirraa Khatiwoda",
-    age:25,
-    habits:["eat","sleep","code"],
-    address:{
-        city:"new york",
-        street:"Main Street",
-        number:123
-    },
-    sleep:()=>{
-        console.log("person is sleeping");
-    }
-};
+// const persons={
+//     name:"Sumirraa Khatiwoda",
+//     age:25,
+//     habits:["eat","sleep","code"],
+//     address:{
+//         city:"new york",
+//         street:"Main Street",
+//         number:123
+//     },
+//     sleep:()=>{
+//         console.log("person is sleeping");
+//     }
+// };
 
 // for (let per of persons){
 //     console.log(per);

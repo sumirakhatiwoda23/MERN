@@ -134,7 +134,7 @@
 // const oldcolors=["blue","green"];
 // const newcolors=["purple","golden"];
 // console.log([...oldcolors,"sumira",...newcolors])
-// console.log([oldcolors,newcolors])
+// console.log(...oldcolors,...newcolors)
 
 // const persons = ['ram', 'shyam', 'hari'];
 // const [x,y,z] = ['ram', 'shyam', 'hari'];

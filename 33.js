@@ -6,6 +6,9 @@
 //     return a+b;
 // })
 // console.log(m)
+
+
+
 const originalString="javascript";
 const n=originalString.split("");
 console.log(n);
