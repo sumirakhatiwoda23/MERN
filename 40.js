@@ -16,10 +16,10 @@
 
 
 
-// const func = (name, a, b, ...args) => {
-//   console.log(args);
-// }
-// func('ram', 11, 22, 33, 44, 55, 66, 77, 88, 99);
+const func = (name, a,b,...args) => {
+  console.log(args);
+}
+func('ram', 11, 22, 33, 44, 55, 66, 77, 88, 99);
 
 
 
@@ -56,3 +56,7 @@
 
 
 
+// const func=(name="sumira",age=23)=>{
+//     console.log(name,age)
+// }
+// func()

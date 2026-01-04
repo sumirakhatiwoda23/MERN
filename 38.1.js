@@ -1,6 +1,6 @@
 // destructing object
 const person = {
-  name: 'Max',
+  name1: 'Max',
   age: 23,
   habits: ['sleep', 'dance'],
   address: {
@@ -12,7 +12,7 @@ const person = {
   }
 }
 
-const { name, habits, address } = person;
+const { name1, habits, address } = person;
 // const { name, habits: [a,b] , address } = person;
-// const { address : {city,country,obj:{nam}},age, habits: [a,b] , name } = person;
+const { address : {city,country,obj:{nam}},age, habits: [a,b] , name } = person;
 console.log(nam)

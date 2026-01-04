@@ -24,6 +24,6 @@ const persons = [
     age: 28
   }
 ];
-console.log()
+// console.log()
 const john = persons.find(person => person.name === "John");
 console.log(john);

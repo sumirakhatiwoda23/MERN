@@ -25,12 +25,12 @@ const persons = [
     age: 28
   }
 ];
-let totalage=0
-persons.forEach(person => {
-  totalage += person.age;
-});
+// let totalage=0
+// persons.forEach(person => {
+//   totalage += person.age;
+// });
 
-console.log("Total age:", totalage)
+// console.log("Total age:", totalage)
 
 
 
@@ -45,3 +45,4 @@ let s = [];
 persons.forEach(person => {
   s.push(person.name);
 });
+console.log(s)

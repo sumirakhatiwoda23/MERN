@@ -14,19 +14,20 @@ const persons = [
 ];
 
 const somes = persons.map(({ age, id, name, gender }) => {
- return (gender);
+return (gender);
 });
-const person = {
-  name: 'Max',
-  age: 23,
-  habits: ['sleep', 'dance'],
-  address: {
-    city: 'New York',
-    country: 'USA',
-    obj: {
-      nam: 'Max'
-    }
-  }
-}
+console.log(somes)
+// const person = {
+//   name: 'Max',
+//   age: 23,
+//   habits: ['sleep', 'dance'],
+//   address: {
+//     city: 'New York',
+//     country: 'USA',
+//     obj: {
+//       nam: 'Max'
+//     }
+//   }
+// }
 
-const { name, habits, address } = person;
+// const { name, habits, address } = person;

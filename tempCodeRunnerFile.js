@@ -1,2 +1,4 @@
-ing.split("");
-console.log(n);
+me="sumira",age=23)=>{
+//     console.log(name,age)
+// }
+// func()

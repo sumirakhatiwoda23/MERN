@@ -8,6 +8,7 @@ const obj={
     some:function(){
         console.log(`rating is ${this.rating}`)
     }
+   
 }
 
 obj.some();
