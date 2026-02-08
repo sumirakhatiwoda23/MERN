@@ -1,0 +1,42 @@
+
+
+26 december
+APP.jsx
+1.
+import React from 'react'
+import GreetCard from './components/GreetCard'
+
+export default function App() {
+  return (
+    <div className='p-4 m-3'>
+<GreetCard title= { " Hello Anuja"}    
+color={"bg-red-500"}   />
+<GreetCard title= { "Hello Sumirraa "} 
+color={"bg-gray-600"}  />
+<GreetCard title= { "Hello Mami "}     
+color={"bg-green-500"}  />
+    </div>
+  )
+}
+
+//color dina ko lagi
+
+1.related
+ GreetCard.jsx
+export default function GreetCard({title,color}) {
+  return (
+   <div className={`${color} w-[200px] h-[200px] mt-2`}>
+    <h1 className="p-2 ">{title}</h1>
+  <p className={`p-2 `}>Lorem ipsum dolor sit amet.</p>
+
+</div>
+  )
+}
+
+
+
+
+
+
+
+
