@@ -1,6 +1,7 @@
 import ColorSection from "./ColorSection";
 import DisplaySection from "./DisplaySection";
 import { DiApple , DiCss3, DiRedis} from "react-icons/di";
+import IndigoTheme from "./IndigoTheme";
 
 const res =[
   { id:1,
@@ -44,14 +45,17 @@ const res =[
 
 export default function Home() {
   return (
+
     <div>
      <DisplaySection/>
      <main className="p-5">
-       <div className="grid grid-cols-3  gap-5 max-md:grid-cols-2 max-sm:grid-cols-1 ">
+       <div className="grid grid-cols-3 gap-5 max-md:grid-cols-2 max-sm:grid-cols-1 ">
         {res.map((item) => {
           return <div key={item.id} className=" flex flex-col justify-center items-center gap-5 pt-2 pb-7 shadow-lg ">
             <h1>{item.label}</h1>
-            {item.icon}
+
+            <div className="transition-all  ease-in-out hover:scale-110 duration-300 hover:-translate-y-5">{item.icon}</div>
+           
             {item.properties.map((property) => {
               return <p key={property}>{property}</p>
             })}
@@ -64,6 +68,7 @@ export default function Home() {
   
 
       <ColorSection/>
+      <IndigoTheme/>
 </main>
      
     </div>
