@@ -1,7 +1,7 @@
-import React from 'react'
+
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './home/Home'
-import About from './about/About'
+
 import Notfound from './not-found/Notfound'
 import RootLayout from './components/RootLayout'
 

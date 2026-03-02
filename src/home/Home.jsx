@@ -1,76 +1,80 @@
-import ColorSection from "./ColorSection";
-import DisplaySection from "./DisplaySection";
-import { DiApple , DiCss3, DiRedis} from "react-icons/di";
-import IndigoTheme from "./IndigoTheme";
+import {
+  Avatar,
+  AvatarFallback,
+} from "@/components/ui/avatar";
 
-const res =[
-  { id:1,
-    label:"Responsive",
-    icon:<DiApple size={170}/>,
-    properties:[
-      "Built-in responsiveness",
-      "Mobile first fluid grid",
-      "Fits any screen sizes",
-      "PC Tablet and Mobile"
-    ]
-
+const users = [
+  {
+    id: 1,
+    name: "Rabin Shrestha",
+    email: "rabin@example.com",
+    role: "admin",
+    isActive: true,
+    skills: ["JavaScript", "Flutter", "MongoDB"]
   },
-  { id:2,
-    label:"Standard CSS",
-    icon:<DiCss3 size={170} />,
-    properties:[
-    " Standard CSS only",
-     "Easy to learn",
-     "No need for jQuery",
-     "No JavaScript library"
-    ]
-
+  {
+    id: 2,
+    name: "Aarav Sharma",
+    email: "aarav.sharma@example.com",
+    role: "user",
+    isActive: true,
+    skills: ["React", "Node.js"]
   },
-  { id:3,
-    label:"Design",
-    icon:<DiRedis size={170} />,
-    properties:[
-     "Paper like design",
-
-"Bold colors and shadows",
-
-"Equal across platforms",
-
-"Equal across devices"
-    ]
-
+  {
+    id: 3,
+    name: "Anita Rai",
+    email: "anita.rai@example.com",
+    role: "editor",
+    isActive: false,
+    skills: ["Content Writing", "SEO", "Editing"]
   }
-]
-
+];
 
 export default function Home() {
   return (
+    <div className="p-5 space-y-4">
+      {users.map((user) => (
+        <div
+          key={user.id}
+          className="border p-4 rounded-xl space-y-2"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Avatar>
+                <AvatarFallback>
+                  {user.name.slice(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
 
-    <div>
-     <DisplaySection/>
-     <main className="p-5">
-       <div className="grid grid-cols-3 gap-5 max-md:grid-cols-2 max-sm:grid-cols-1 ">
-        {res.map((item) => {
-          return <div key={item.id} className=" flex flex-col justify-center items-center gap-5 pt-2 pb-7 shadow-lg ">
-            <h1>{item.label}</h1>
+              <div>
+                <p className="font-semibold">{user.name}</p>
+                <p className="text-sm text-gray-500">{user.email}</p>
+                <p className="text-sm">Role: {user.role}</p>
+              </div>
+            </div>
 
-            <div className="transition-all  ease-in-out hover:scale-110 duration-300 hover:-translate-y-5">{item.icon}</div>
-           
-            {item.properties.map((property) => {
-              return <p key={property}>{property}</p>
-            })}
-
-
+            <span
+              className={`px-2 py-1 text-xs rounded ${
+                user.isActive ? "bg-green-200" : "bg-red-200"
+              }`}
+            >
+              {user.isActive ? "Active" : "Inactive"}
+            </span>
           </div>
 
-        })}
-      </div>
-  
-
-      <ColorSection/>
-      <IndigoTheme/>
-</main>
-     
+          {/* skills list */}
+          <div className="flex flex-wrap gap-2">
+            {user.skills.map((skill, i) => (
+              <span
+                key={i}
+                className="text-xs px-2 py-1 bg-gray-200 rounded-lg"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
-  )
+  );
 }
