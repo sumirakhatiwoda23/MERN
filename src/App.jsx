@@ -4,6 +4,8 @@ import Home from './home/Home'
 
 import Notfound from './not-found/Notfound'
 import RootLayout from './components/RootLayout'
+import MealList from './meals/MealList'
+import Meal from './meals/Meal'
 
 
 export default function App() {
@@ -15,6 +17,14 @@ export default function App() {
         {
         index:true,
         element:<Home/>
+        },
+        {
+path:"meal-list/:category",
+element:<MealList/>
+        },
+        {
+          path:"meal/:id",
+          element:<Meal/>
         },
      
     {
