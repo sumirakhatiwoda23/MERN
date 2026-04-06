@@ -1,13 +1,29 @@
+import { Input } from '@/components/ui/input'
 import CategoryMealList from '../meals/CategoryMealList'
-import React from 'react'
+import React, { useActionState } from 'react'
+import { useNavigate } from 'react-router'
+
+
+
+
 
 export default function Home() {
+
+const nav=useNavigate();
+
+  const handleForm=(prevState, formData)=>{
+    const search=formData.get("search");
+    if(!search) return;
+    nav(`/search-meal?s=${search}`)
+  }
+  const [state,action]=useActionState(handleForm,null)
+  
   return (
     <div className='text-white px-14'>
 
 
 
-<div className='flex flex-row items-center'>
+<div className='grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 justify-items-center'>
   <img src="https://www.themealdb.com/images/meal-icon.png" alt="" />
 
 <div className='text-center space-y-4'>
@@ -27,6 +43,15 @@ We offer a free recipe API for anyone wanting to use it, with additional premium
 
 
 <hr />
+
+
+<form action={action} className='max-w-sm mt-5 mx-auto'>
+  <Input
+  placeholder="Search for meal"
+  name="search"
+  />
+</form>
+
 <CategoryMealList/>
     </div>
   )

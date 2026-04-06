@@ -30,7 +30,7 @@ if(err)return <h1 className='text-red-300'>{err}</h1>
     <div className='my-11 text-center'>
 
         <h2>Meal Category</h2>
-        <div className='grid grid-cols-4 gap-10'>
+        <div className='grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 mt-6 justify-items-center  gap-10'>
         {
           data.map((category)=>{
             return <div  onClick={()=>nav(`/meal-list/${category.strCategory}`)}

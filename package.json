@@ -12,9 +12,10 @@
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
     "@tailwindcss/vite": "^4.1.18",
-    "axios": "^1.13.6",
+    "axios": "^1.14.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "for": "^0.0.1-dev.0",
     "lucide-react": "^0.576.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",

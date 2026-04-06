@@ -6,6 +6,7 @@ import Notfound from './not-found/Notfound'
 import RootLayout from './components/RootLayout'
 import MealList from './meals/MealList'
 import Meal from './meals/Meal'
+import SearchMeal from './meals/SearchMeal'
 
 
 export default function App() {
@@ -25,6 +26,10 @@ element:<MealList/>
         {
           path:"meal/:id",
           element:<Meal/>
+        },
+        {
+       path:"search-meal",
+       element:<SearchMeal/>
         },
      
     {
