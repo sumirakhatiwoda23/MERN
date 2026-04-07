@@ -39,7 +39,7 @@
 
 }
   body {
-    @apply bg-[#1D1B17] text-foreground;
+    @apply bg-background text-foreground;
 
 }
 }
