@@ -1,25 +1,22 @@
 import express from 'express';
-import productRoutes from './routes/productRoutes.js';
+
 const app = express();
-app.use(express.json());
 
 
 app.get('/', (req, res) => {
 
+  const { number } = req.query;
+  console.log(number);
+
   return res.status(200).json({
-    message: "Hello world"
+    message: "Hello World"
   });
 
 });
 
-// yo use garney
-
-app.use('/products',productRoutes);
 
 
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
 })
-
-
