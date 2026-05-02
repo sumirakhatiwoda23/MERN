@@ -1,12 +1,12 @@
 import express from 'express';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-const app = express();
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import morgan from'morgan';
 import fileUpload from 'express-fileupload';
 
+const app = express();
 dotenv.config({
 
 });
