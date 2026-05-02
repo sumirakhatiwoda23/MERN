@@ -20,3 +20,4 @@ export const getProducts = (req, res) => {
             message: "Product deleted"
         });
     }
+

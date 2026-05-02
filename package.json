@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/sumirakhatiwoda23/Mern#readme",
   "dependencies": {
-    "express": "^4.22.1"
+    "dotenv": "^17.4.2",
+    "express": "^4.22.1",
+    "mongoose": "^9.6.1"
   }
 }
