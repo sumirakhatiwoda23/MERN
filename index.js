@@ -4,14 +4,18 @@ import userRoutes from './routes/userRoutes.js';
 const app = express();
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+import morgan from'morgan';
+import fileUpload from 'express-fileupload';
 
 dotenv.config({
 
 });
 
 app.use(express.json());
-
+app.use(morgan("dev")); 
+app.use(fileUpload({
+  limits:{fileSize:5*1024*1024},
+}))
 
 
 mongoose.connect(process.env.DB_URL).then((val) => {
@@ -33,5 +37,5 @@ app.get('/', (req, res) => {
 
 
 
-app.use('/products', productRoutes);
+app.use('/api/products', productRoutes);
 app.use(userRoutes);

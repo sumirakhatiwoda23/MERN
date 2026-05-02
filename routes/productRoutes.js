@@ -5,14 +5,15 @@ import {
   getProducts,
   updateProduct
 } from '../controllers/productController.js';
+import { notAllowed } from '../utils/notAllowed.js';
+import { fileCheck } from '../middleware/fileCheck.js';
 
 const router = express.Router();
 
 router.route('/')
 .get(getProducts)
-.post(createProduct)
-.patch(updateProduct)
-.delete(deleteProduct)
+.post(fileCheck,createProduct)
+.all(notAllowed)
 
 router.route('/:id').get(getProducts).patch(updateProduct).delete(deleteProduct);
 
