@@ -1,5 +1,6 @@
 
 import express from 'express';
+
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import mongoose from 'mongoose';
@@ -38,5 +39,5 @@ app.get('/', (req, res) => {
 
 
 
+app.use('/api/users',userRoutes);
 app.use('/api/products', productRoutes);
-app.use(userRoutes);
