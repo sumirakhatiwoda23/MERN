@@ -1,20 +1,23 @@
 import express from 'express';
-import {
-  createProduct,
-  deleteProduct,
-  getProducts,
-  updateProduct
-} from '../controllers/productController.js';
+import { createProduct, deleteProduct, getProduct, getProducts, updateProduct } from '../controllers/productController.js';
 import { notAllowed } from '../utils/notAllowed.js';
-import { fileCheck } from '../middleware/fileCheck.js';
+import { fileCheck, updateFileCheck } from '../middleware/fileCheck.js';
+import mongoose from 'mongoose';
+
+
 
 const router = express.Router();
 
-router.route('/')
-.get(getProducts)
-.post(fileCheck,createProduct)
-.all(notAllowed)
 
-router.route('/:id').get(getProducts).patch(updateProduct).delete(deleteProduct);
+router.param('id', (req, res, next, id) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: "Invalid product id" });
+  req.productId = id;
+  next();
+});
 
-export default router
+router.route('/').get(getProducts).post(fileCheck, createProduct).all(notAllowed);
+
+router.route('/:id').get(getProduct).patch(updateFileCheck,updateProduct).delete(deleteProduct);
+
+
+export default router;
