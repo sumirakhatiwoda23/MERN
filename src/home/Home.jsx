@@ -1,7 +1,9 @@
-import React from 'react'
+import { useSelector } from "react-redux";
 
 export default function Home() {
-  return (
-    <div>Home</div>
-  )
+  const todos = useSelector((state) => state.todo.todos);
+
+  console.log(todos);
+
+  return <div>Home</div>;
 }
