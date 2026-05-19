@@ -26,6 +26,10 @@ export default function App() {
       path:'*',
       element:<Notfound/>
 
+    },
+    {
+       path: 'update-todo/:id',
+          element: <TodoUpdateForm />
     }
       ]
       

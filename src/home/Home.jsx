@@ -1,13 +1,12 @@
 import { useSelector } from "react-redux";
-import { Button } from "../components/ui/button.jsx";
-import { EditIcon, TrashIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { EditIcon } from "lucide-react";
+import DeleteTodo from "@/todos/DeleteTodo";
+import { useNavigate } from "react-router";
 
 export default function Home() {
-
-  // FROM SECOND CODE
-  const todos = useSelector(
-    (state) => state.todo.todos
-  );
+  const nav = useNavigate();
+  const { todos } = useSelector((state) => state.todoSlice);
 
   console.log(todos);
 
@@ -17,21 +16,16 @@ export default function Home() {
         Home
       </h1>
 
-      {/* FROM FIRST CODE */}
       <div className="grid gap-5 grid-cols-3 p-5">
         {todos.map((todo) => (
           <div
             key={todo.id}
             className="shadow-xs border rounded-md p-3"
           >
-
             <h1>{todo.email}</h1>
-
             <p>{todo.gender}</p>
-
             <h3>{todo.country}</h3>
 
-            {/* OPTIONAL IMAGE */}
             {todo.image && (
               <img
                 src={todo.image}
@@ -41,15 +35,14 @@ export default function Home() {
             )}
 
             <div className="mt-3 flex gap-5">
-              <Button variant="outline">
+              <Button
+                onClick={() => nav(`/update-todo/${todo.id}`)}
+                variant="outline"
+              >
                 <EditIcon />
               </Button>
-
-              <Button variant="outline">
-                <TrashIcon />
-              </Button>
+              <DeleteTodo id={todo.id} />
             </div>
-
           </div>
         ))}
       </div>

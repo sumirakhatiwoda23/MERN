@@ -1,18 +1,43 @@
+import { getTodoFromLocal, setTodoToLocal } from "@/local/local";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const todoSlice = createSlice({
-  name: "todo",
+  name: "todoSlice",
+
   initialState: {
-    todos: []
+    todos: getTodoFromLocal()
   },
+
   reducers: {
     addTodo: (state, action) => {
       state.todos.push(action.payload);
-    }
+
+      // save to localStorage
+      setTodoToLocal(state.todos);
+    },
+
+    removeTodo: (state, action) => {
+      state.todos = state.todos.filter(
+        (todo) => todo.id !== action.payload
+      );
+
+      // update localStorage
+      setTodoToLocal(state.todos);
+    },
+
+    updateTodo: (state, action) => {
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return action.payload;
+        }
+        return todo;
+      });
+    },
   }
 });
 
-export const { addTodo } = todoSlice.actions;
+// export actions
+export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
 
-// ✅ THIS IS REQUIRED
+// export reducer
 export default todoSlice.reducer;

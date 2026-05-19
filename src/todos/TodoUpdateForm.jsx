@@ -1,10 +1,4 @@
 import { Formik } from "formik";
-import * as Yup from "yup";
-
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addTodo } from "./todoSlice.js";
-import { nanoid } from "@reduxjs/toolkit";
 
 import { Button } from "@/components/ui/button";
 
@@ -26,10 +20,10 @@ import {
 
 import {
   Select,
-  SelectLabel,
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -43,68 +37,41 @@ import {
   FieldGroup,
 } from "@/components/ui/field";
 
-export const todoSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Email is required"),
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { todoSchema } from "./TodoAddFrom.jsx";
+import { updateTodo } from "./todoSlice.js";
 
-  gender: Yup.string()
-    .required("Gender is required"),
-
-  country: Yup.string()
-    .required("Country is required"),
-
-  message: Yup.string()
-    .min(10, "Minimum 10 characters")
-    .max(200, "Maximum 200 characters")
-    .required("Message is required"),
-
-  airplanemode: Yup.boolean(),
-
-  habits: Yup.array()
-    .min(1, "Select at least one habit"),
-
-  image: Yup.string()
-    .required("Image is required"),
-});
-
-export default function TodoAddFrom() {
+export default function TodoUpdateForm() {
+  const { id } = useParams();
+  const { todos } = useSelector((state) => state.todoSlice);
+  const todo = todos.find((todo) => todo.id === id);
+ 
   const dispatch = useDispatch();
   const nav = useNavigate();
-
+ 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Add Some Todos</CardTitle>
-
-        <CardDescription>
-          Enter some details
-        </CardDescription>
+        <CardTitle>Update Todo</CardTitle>
+        <CardDescription>Edit the details below</CardDescription>
       </CardHeader>
-
+ 
       <CardContent>
         <Formik
           initialValues={{
-            email: "",
-            gender: "",
-            country: "",
-            message: "",
-            airplanemode: false,
-            habits: [],
-            image: "",
-            imageReview: "",
+            email: todo.email,
+            gender: todo.gender,
+            country: todo.country,
+            message: todo.message,
+            airplanemode: todo.airplanemode,
+            habits: todo.habits,
+            image: todo.image ?? "",
+            imageReview: todo.image ?? "",
           }}
           validationSchema={todoSchema}
           onSubmit={(val) => {
-            console.log(val);
-
-            dispatch(
-              addTodo({
-                ...val,
-                id: nanoid(),
-              })
-            );
-
+            dispatch(updateTodo({ ...val, id }));
             nav(-1);
           }}
         >
@@ -118,13 +85,10 @@ export default function TodoAddFrom() {
           }) => (
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
-
+ 
                 {/* EMAIL */}
                 <div className="grid gap-2">
-                  <Label htmlFor="email">
-                    Email
-                  </Label>
-
+                  <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
                     name="email"
@@ -132,63 +96,43 @@ export default function TodoAddFrom() {
                     value={values.email}
                     placeholder="m@example.com"
                   />
-
-                  {errors.email &&
-                    touched.email && (
-                      <div className="text-red-500">
-                        {errors.email}
-                      </div>
-                    )}
+                  {errors.email && touched.email && (
+                    <div className="text-red-500">{errors.email}</div>
+                  )}
                 </div>
-
+ 
                 {/* GENDER */}
                 <div className="grid gap-2">
-                  <Label>
-                    Select Your Gender
-                  </Label>
-
+                  <Label>Select Your Gender</Label>
                   <RadioGroup
                     value={values.gender}
-                    onValueChange={(value) =>
-                      setFieldValue("gender", value)
-                    }
+                    onValueChange={(value) => setFieldValue("gender", value)}
                     className="w-fit mt-2"
                   >
                     <div className="flex items-center gap-3">
                       <RadioGroupItem value="male" id="male" />
                       <Label htmlFor="male">Male</Label>
                     </div>
-
                     <div className="flex items-center gap-3">
                       <RadioGroupItem value="female" id="female" />
                       <Label htmlFor="female">Female</Label>
                     </div>
                   </RadioGroup>
-
-                  {errors.gender &&
-                    touched.gender && (
-                      <div className="text-red-500">
-                        {errors.gender}
-                      </div>
-                    )}
+                  {errors.gender && touched.gender && (
+                    <div className="text-red-500">{errors.gender}</div>
+                  )}
                 </div>
-
+ 
                 {/* COUNTRY */}
                 <div className="grid gap-2">
-                  <Label>
-                    Select Your Country
-                  </Label>
-
+                  <Label>Select Your Country</Label>
                   <Select
                     value={values.country}
-                    onValueChange={(value) =>
-                      setFieldValue("country", value)
-                    }
+                    onValueChange={(value) => setFieldValue("country", value)}
                   >
                     <SelectTrigger className="w-full max-w-48">
                       <SelectValue placeholder="Select country" />
                     </SelectTrigger>
-
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Country</SelectLabel>
@@ -198,15 +142,11 @@ export default function TodoAddFrom() {
                       </SelectGroup>
                     </SelectContent>
                   </Select>
-
-                  {errors.country &&
-                    touched.country && (
-                      <div className="text-red-500">
-                        {errors.country}
-                      </div>
-                    )}
+                  {errors.country && touched.country && (
+                    <div className="text-red-500">{errors.country}</div>
+                  )}
                 </div>
-
+ 
                 {/* MESSAGE */}
                 <div>
                   <Textarea
@@ -215,15 +155,11 @@ export default function TodoAddFrom() {
                     value={values.message}
                     placeholder="Type your message here."
                   />
-
-                  {errors.message &&
-                    touched.message && (
-                      <div className="text-red-500">
-                        {errors.message}
-                      </div>
-                    )}
+                  {errors.message && touched.message && (
+                    <div className="text-red-500">{errors.message}</div>
+                  )}
                 </div>
-
+ 
                 {/* SWITCH */}
                 <div className="flex items-center space-x-2">
                   <Switch
@@ -233,20 +169,14 @@ export default function TodoAddFrom() {
                     }
                     id="airplane-mode"
                   />
-
-                  <Label htmlFor="airplane-mode">
-                    Airplane Mode
-                  </Label>
+                  <Label htmlFor="airplane-mode">Airplane Mode</Label>
                 </div>
-
+ 
                 {/* HABITS */}
                 <div>
-                  <Label>
-                    Select Your Habits
-                  </Label>
-
+                  <Label>Select Your Habits</Label>
                   <FieldGroup className="max-w-sm mt-4">
-
+ 
                     {/* DANCE */}
                     <Field orientation="horizontal">
                       <Checkbox
@@ -265,7 +195,7 @@ export default function TodoAddFrom() {
                       />
                       <Label htmlFor="dance">Dance</Label>
                     </Field>
-
+ 
                     {/* SING */}
                     <Field orientation="horizontal">
                       <Checkbox
@@ -284,17 +214,13 @@ export default function TodoAddFrom() {
                       />
                       <Label htmlFor="sing">Sing</Label>
                     </Field>
-
+ 
                   </FieldGroup>
-
-                  {errors.habits &&
-                    touched.habits && (
-                      <div className="text-red-500">
-                        {errors.habits}
-                      </div>
-                    )}
+                  {errors.habits && touched.habits && (
+                    <div className="text-red-500">{errors.habits}</div>
+                  )}
                 </div>
-
+ 
                 {/* IMAGE */}
                 <div>
                   <Input
@@ -309,7 +235,6 @@ export default function TodoAddFrom() {
                       setFieldValue("image", url);
                     }}
                   />
-
                   {values.imageReview && (
                     <img
                       src={values.imageReview}
@@ -317,26 +242,15 @@ export default function TodoAddFrom() {
                       className="rounded-md w-32"
                     />
                   )}
-
                   {errors.image && (
-                    <div className="text-red-500">
-                      {errors.image}
-                    </div>
+                    <div className="text-red-500">{errors.image}</div>
                   )}
                 </div>
-
-                {/* DEBUG */}
-                <pre className="text-xs">
-                  {JSON.stringify(errors, null, 2)}
-                </pre>
-
+ 
               </div>
-
-              <Button
-                type="submit"
-                className="mt-7 w-full"
-              >
-                Submit
+ 
+              <Button type="submit" className="mt-7 w-full">
+                Update
               </Button>
             </form>
           )}
