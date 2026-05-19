@@ -11,8 +11,6 @@ export const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       state.todos.push(action.payload);
-
-      // save to localStorage
       setTodoToLocal(state.todos);
     },
 
@@ -20,8 +18,6 @@ export const todoSlice = createSlice({
       state.todos = state.todos.filter(
         (todo) => todo.id !== action.payload
       );
-
-      // update localStorage
       setTodoToLocal(state.todos);
     },
 
@@ -32,12 +28,10 @@ export const todoSlice = createSlice({
         }
         return todo;
       });
+      setTodoToLocal(state.todos); // ← added
     },
   }
 });
 
-// export actions
 export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
-
-// export reducer
 export default todoSlice.reducer;
