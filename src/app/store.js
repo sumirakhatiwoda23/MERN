@@ -1,10 +1,11 @@
+import { blogApi } from "@/blogs/blogApi";
 import { configureStore } from "@reduxjs/toolkit";
-import { blogApi } from "@/blogs/blogApi.js";
+
 
 export const store = configureStore({
-  reducer: {
-    [blogApi.reducerPath]: blogApi.reducer,
+  reducer:{
+    [blogApi.reducerPath]:blogApi.reducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(blogApi.middleware),
-});
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([blogApi.middleware]),
+})
