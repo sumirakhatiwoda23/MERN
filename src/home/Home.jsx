@@ -1,11 +1,15 @@
 import { useGetBlogsQuery } from '@/blogs/blogApi'
+import RemoveBlog from '@/blogs/RemoveBlog';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Formik } from 'formik';
+
 import React from 'react'
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 
 export default function Home() {
+  const nav=useNavigate()
 
   const[searchParams,setSearchParams]=useSearchParams();
 
@@ -31,9 +35,10 @@ console.log(searchParams.get('search'))
 initialValues={{
   search:''
 }}
-onSubmit={(val)=>{
+onSubmit={(val,{resetForm})=>{
 
 setSearchParams({search:val.search})
+resetForm();
 
 }}
 >
@@ -64,18 +69,31 @@ placeholder ="search"/>
 
 
 
-
+<div className='grid grid-cols-3 gap-10'>
       
 {
   data && data.map((blog)=>{
-    return <div key={blog.id}>
-      <h1>{blog.title}</h1>
-      <p>{blog.detail}</p>
-
-    </div>
+    return <Card key={blog.id} className='max-w-md pt-0'>
+            <CardContent className='px-0'>
+              <img
+                src={blog.image}
+                alt='Banner'
+                className='aspect-video h-70 rounded-t-xl object-cover'
+              />
+            </CardContent>
+            <CardHeader>
+              <CardTitle>{blog.title}</CardTitle>
+              <CardDescription>{blog.detail}</CardDescription>
+            </CardHeader>
+            <CardFooter className='gap-3 max-sm:flex-col max-sm:items-stretch'>
+              <Button onClick={()=>nav(`/update-blog/${blog.id}`)}>
+                Edit</Button>
+              <RemoveBlog  id={blog.id} />
+            </CardFooter>
+          </Card>
   })
 }
-
+</div >
     </div>
   )
 }
