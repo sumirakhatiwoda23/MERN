@@ -1,99 +1,151 @@
-import { useGetBlogsQuery } from '@/blogs/blogApi'
-import RemoveBlog from '@/blogs/RemoveBlog';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import React from 'react';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-import React from 'react'
-import { useNavigate, useSearchParams } from 'react-router';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Spinner } from '@/components/ui/spinner';
+import { toast } from 'sonner';
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+import { useLanguageTranslateMutation } from '@/translate/translateApi';
+
+const valSchema = Yup.object({
+  from: Yup.string().required('Required'),
+  to: Yup.string().required('Required'),
+  query: Yup.string().required('Required'),
+});
 
 export default function Home() {
-  const nav=useNavigate()
+  const [translate, { isLoading, data }] =
+    useLanguageTranslateMutation();
 
-  const[searchParams,setSearchParams]=useSearchParams();
+  console.log(data);
 
-   const queryObj=searchParams.get('search')===null?{}:{
-    search: searchParams.get('search')
-   }
-
-  const {data,isLoading,error}=useGetBlogsQuery(queryObj);
-  
-
-console.log(searchParams.get('search'))
-
-  if(isLoading) return <h1>Loading...</h1>
-  if(error) return <h1 className='text-red-500'>{error.message || error.error}</h1>
- 
   return (
     <div>
+      <Formik
+        initialValues={{
+          from: '',
+          to: '',
+          query: '',
+        }}
+        validationSchema={valSchema}
+        onSubmit={async (values, { resetForm }) => {
+          try {
+            await translate(values).unwrap();
 
+            toast.success('Translation successful');
+            resetForm();
+          } catch (err) {
+            console.error(err);
+            toast.error('Something went wrong');
+          }
+        }}
+      >
+        {({
+          errors,
+          touched,
+          values,
+          handleChange,
+          setFieldValue,
+          handleSubmit,
+        }) => (
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-lg space-y-5"
+          >
+            {/* From Language */}
+            <Select
+              value={values.from}
+              onValueChange={(value) => {
+                setFieldValue('from', value);
+              }}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select source language" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="gu">Gujarati</SelectItem>
+                  <SelectItem value="ja">Japanese</SelectItem>
+                  <SelectItem value="mi">Maori</SelectItem>
+                  <SelectItem value="ne">Nepali</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            {errors.from && touched.from && (
+              <p className="text-red-600">{errors.from}</p>
+            )}
+
+            {/* Query */}
+            <Input
+              name="query"
+              value={values.query}
+              onChange={handleChange}
+              placeholder="Enter text to translate"
+            />
+
+            {errors.query && touched.query && (
+              <p className="text-red-600">{errors.query}</p>
+            )}
+
+            {/* To Language */}
+            <Select
+              value={values.to}
+              onValueChange={(value) => {
+                setFieldValue('to', value);
+              }}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select target language" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="gu">Gujarati</SelectItem>
+                  <SelectItem value="ja">Japanese</SelectItem>
+                  <SelectItem value="mi">Maori</SelectItem>
+                  <SelectItem value="ne">Nepali</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            {errors.to && touched.to && (
+              <p className="text-red-600">{errors.to}</p>
+            )}
+
+            <Button
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? <Spinner /> : 'Translate'}
+            </Button>
+
+         
+          </form>
+        )}
+      </Formik>
 
 <div>
 
-<Formik
-initialValues={{
-  search:''
-}}
-onSubmit={(val,{resetForm})=>{
-
-setSearchParams({search:val.search})
-resetForm();
-
-}}
->
-{({handleChange,values,handleSubmit})=>(
-  <form 
-  
-  className='max-w-lg mb-3'
-  onSubmit={handleSubmit}
-  
-  >
-
-<Input 
-
-value={values.search}
-onChange={handleChange('search')}
-placeholder ="search"/>
-
-  </form>
-)}
-
-
-</Formik>
-
-
-
-
 </div>
+{data && <h1>{data.query} </h1>}
+{ data && <h1> {data.translation} </h1>}
 
 
-
-<div className='grid grid-cols-3 gap-10'>
-      
-{
-  data && data.map((blog)=>{
-    return <Card key={blog.id} className='max-w-md pt-0'>
-            <CardContent className='px-0'>
-              <img
-                src={blog.image}
-                alt='Banner'
-                className='aspect-video h-70 rounded-t-xl object-cover'
-              />
-            </CardContent>
-            <CardHeader>
-              <CardTitle>{blog.title}</CardTitle>
-              <CardDescription>{blog.detail}</CardDescription>
-            </CardHeader>
-            <CardFooter className='gap-3 max-sm:flex-col max-sm:items-stretch'>
-              <Button onClick={()=>nav(`/update-blog/${blog.id}`)}>
-                Edit</Button>
-              <RemoveBlog  id={blog.id} />
-            </CardFooter>
-          </Card>
-  })
-}
-</div >
     </div>
-  )
+  );
 }

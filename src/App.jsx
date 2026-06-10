@@ -2,8 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './home/Home'
 import Notfound from './not-found/Notfound'
 import RootLayout from './components/RootLayout'
-import AddBlog from './blogs/AddBlog'
-import UpdateBlog from './blogs/UpdateBlog'
+
  
 
 export default function App() {
@@ -16,15 +15,7 @@ export default function App() {
           index: true,
           element: <Home />
         },
-        {
-path:'add-blog',
-element:<AddBlog/>
-        },
-        {
-          path:'update-blog/:id',
-          element: <UpdateBlog/>
-        }
-       ,
+  
         {
           path: '*',
           element: <Notfound />
