@@ -1,11 +1,11 @@
-import { translateApi } from "@/translate/translateApi";
+import { quoteApi } from "@/quotes/quoteApi";
 import { configureStore } from "@reduxjs/toolkit";
 
 
 export const store = configureStore({
   reducer:{
   
-    [translateApi.reducerPath]:translateApi.reducer
+    [quoteApi.reducerPath]:quoteApi.reducer
 
 
 
@@ -13,6 +13,6 @@ export const store = configureStore({
   },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
-      translateApi.middleware
+      quoteApi.middleware
     ]),
 })

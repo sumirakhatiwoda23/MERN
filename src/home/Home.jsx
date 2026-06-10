@@ -1,151 +1,95 @@
-import React from 'react';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { toast } from 'sonner';
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-
-import { useLanguageTranslateMutation } from '@/translate/translateApi';
-
-const valSchema = Yup.object({
-  from: Yup.string().required('Required'),
-  to: Yup.string().required('Required'),
-  query: Yup.string().required('Required'),
-});
+import { useGetRandomQuotesQuery } from '@/quotes/quoteApi'
+import { Quote } from 'lucide-react';
+import React from 'react'
 
 export default function Home() {
-  const [translate, { isLoading, data }] =
-    useLanguageTranslateMutation();
+  const {isLoading,error,data, refetch , isFetching}=useGetRandomQuotesQuery();
 
-  console.log(data);
+  if(isLoading){
+    return <div>Loading...</div>
+  }
+
+ if(error){
+  return <div> {error.message} </div>
+ }
+
+console.log(data)
 
   return (
-    <div>
-      <Formik
-        initialValues={{
-          from: '',
-          to: '',
-          query: '',
-        }}
-        validationSchema={valSchema}
-        onSubmit={async (values, { resetForm }) => {
-          try {
-            await translate(values).unwrap();
+ 
 
-            toast.success('Translation successful');
-            resetForm();
-          } catch (err) {
-            console.error(err);
-            toast.error('Something went wrong');
-          }
-        }}
-      >
-        {({
-          errors,
-          touched,
-          values,
-          handleChange,
-          setFieldValue,
-          handleSubmit,
-        }) => (
-          <form
-            onSubmit={handleSubmit}
-            className="max-w-lg space-y-5"
-          >
-            {/* From Language */}
-            <Select
-              value={values.from}
-              onValueChange={(value) => {
-                setFieldValue('from', value);
-              }}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select source language" />
-              </SelectTrigger>
-
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="gu">Gujarati</SelectItem>
-                  <SelectItem value="ja">Japanese</SelectItem>
-                  <SelectItem value="mi">Maori</SelectItem>
-                  <SelectItem value="ne">Nepali</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-
-            {errors.from && touched.from && (
-              <p className="text-red-600">{errors.from}</p>
-            )}
-
-            {/* Query */}
-            <Input
-              name="query"
-              value={values.query}
-              onChange={handleChange}
-              placeholder="Enter text to translate"
-            />
-
-            {errors.query && touched.query && (
-              <p className="text-red-600">{errors.query}</p>
-            )}
-
-            {/* To Language */}
-            <Select
-              value={values.to}
-              onValueChange={(value) => {
-                setFieldValue('to', value);
-              }}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select target language" />
-              </SelectTrigger>
-
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="gu">Gujarati</SelectItem>
-                  <SelectItem value="ja">Japanese</SelectItem>
-                  <SelectItem value="mi">Maori</SelectItem>
-                  <SelectItem value="ne">Nepali</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-
-            {errors.to && touched.to && (
-              <p className="text-red-600">{errors.to}</p>
-            )}
-
-            <Button
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? <Spinner /> : 'Translate'}
-            </Button>
-
-         
-          </form>
-        )}
-      </Formik>
-
-<div>
-
-</div>
-{data && <h1>{data.query} </h1>}
-{ data && <h1> {data.translation} </h1>}
+<div className="w-full max-w-2xl animate-fadeIn">
+  <Button 
+  disabled={isLoading}
+  onClick={refetch}
+  className='mb-3'>
+    
+    {
+      isFetching ? <Spinner/>  
+       : "New Quote"
+    }
+    
+   </Button>
+        <Card className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl shadow-2xl">
+          <CardContent className="p-8 space-y-6">
+            {/* Quote icon */}
+            <div className="flex justify-center">
+              <div className="p-3 rounded-full bg-slate-800/70 border border-slate-700">
+                <Quote className="w-6 h-6 text-white" />
+              </div>
+            </div>
 
 
-    </div>
-  );
+            {/* Quote text */}
+            <p className="text-center text-lg md:text-xl leading-relaxed font-medium text-slate-100">
+              “{data.content}”
+            </p>
+
+
+            {/* Author */}
+            <div className="text-center">
+              <p className="text-base font-semibold text-slate-200">
+                — {data.author}
+              </p>
+            </div>
+
+            <p className="text-white">{data.originator.description}</p>
+
+
+            {/* Tags (without Badge component) */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {data.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 text-sm rounded-full bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+
+
+            {/* Source link */}
+            <div className="text-center pt-2">
+              <a
+                href={data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-slate-400 hover:text-slate-200 underline underline-offset-4 transition"
+              >
+                View original source
+              </a>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+
+
+
+   
+  )
 }
