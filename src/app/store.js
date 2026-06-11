@@ -1,11 +1,12 @@
-import { quoteApi } from "@/quotes/quoteApi";
+import { movieApi } from "@/movies/movieApi";
+
 import { configureStore } from "@reduxjs/toolkit";
 
 
 export const store = configureStore({
   reducer:{
   
-    [quoteApi.reducerPath]:quoteApi.reducer
+    [movieApi.reducerPath]:movieApi.reducer
 
 
 
@@ -13,6 +14,6 @@ export const store = configureStore({
   },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
-      quoteApi.middleware
+     movieApi.middleware
     ]),
 })
