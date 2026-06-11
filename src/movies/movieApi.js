@@ -32,10 +32,10 @@ endpoints: (builder) => ({
 
  
     getPopularMovie: builder.query({
-      query: () =>({
+      query: (page) =>({
           url: `/movie/popular`,
           method: 'GET',    
-
+          params: { page }
 
       })
     }),
@@ -52,10 +52,17 @@ getUpcoming: builder.query({
       url: `/movie/upcoming`,
       method: 'GET',
     })
-})
+}),
+
+getVideoMovie: builder.query({
+  query: (id) =>({
+      url: `/movie/${id}/videos`,
+      method: 'GET',
+    })
+}),
 
   }),   
 } )       
 
 
-export const { useGetNowPlayingQuery, useGetPopularMovieQuery , useGetTopRatedQuery, useGetUpcomingQuery , useGetMovieQuery} = movieApi;
+export const { useGetNowPlayingQuery, useGetPopularMovieQuery , useGetTopRatedQuery, useGetUpcomingQuery , useGetMovieQuery,useGetVideoMovieQuery} = movieApi;

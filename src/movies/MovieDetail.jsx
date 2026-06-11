@@ -1,5 +1,6 @@
 import { useParams } from "react-router"
 import { useGetMovieQuery } from "./movieApi";
+import MovieVideo from "./MovieVideo";
 
 export default function MovieDetail() {
 
@@ -16,9 +17,13 @@ console.log(data)
 
   return (
     <div>
-    <h1 className="text-3xl font-bold">{data.title}</h1>
+    <h1>{data.title}</h1>
     <p>{data.overview}</p>  
-    
+    <img src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} alt={data.title} />
+<MovieVideo
+id={data.id}
+
+/>
     </div>
   )
 }
