@@ -68,7 +68,8 @@ export const updateFileCheck = (req, res, next) => {
       });
     }
 
-    req.imagePath = imagePath;
+    req.imagePath = imagePath; 
+    
 
     next();
 
