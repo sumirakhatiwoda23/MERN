@@ -1,7 +1,7 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
-const base='http://192.168.101.3:5000'
+export const base='http://192.168.101.3:5000'
 const baseApi=`${base}/api`
 
 export const mainApi = createApi({

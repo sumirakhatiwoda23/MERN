@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from './ui/button'
+import { NavLink } from 'react-router-dom'
 
 export default function Header() {
   return (
@@ -9,7 +10,11 @@ export default function Header() {
 
 <nav className='flex gap-7'>
 
+<NavLink to={'/login'}>
+
 <Button variant="outline" className={'bg-none'}>Login</Button>
+</NavLink>
+
 <Button className="bg-blue-500">SignUp</Button>
 
 
