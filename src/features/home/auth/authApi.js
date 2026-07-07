@@ -16,7 +16,7 @@ const authApi = mainApi.injectEndpoints({
     }),
 
 
-register:builder.mutation({
+registerUser:builder.mutation({
     query:(q)=>({
         url:'/users/register',      
         body:q,

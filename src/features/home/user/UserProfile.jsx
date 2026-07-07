@@ -10,12 +10,10 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Formik } from "formik"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
-import { useState } from "react"
+
 import * as Yup from 'yup';
 
 import { useNavigate } from "react-router-dom"
-import { useRegisterUserMutation } from "./authApi"
 import { Spinner } from "@/components/ui/spinner"
 import { toast } from "sonner"
 // import { useRegisterUserMutation } from "./authApi"
@@ -25,31 +23,25 @@ import { toast } from "sonner"
 export const registerSchema = Yup.object({
   fullname: Yup.string().min(4, 'Fullname must be at least 4 characters').max(40, 'Fullname must be at most 40 characters').required('Fullname is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().min(4, 'Password must be at least 4 characters').max(40, 'Password must be at most 40 characters').required('Password is required'),
   image: Yup.mixed().test('file Type', 'Unsupported file', (val) => {
     return val && ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(val.type)
-  }).required()
+  })
 });
 
 
-export default function Register() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [registerUser, { isLoading }] = useRegisterUserMutation();
+export default function UserProfile() {
+
 
   const nav = useNavigate();
 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Register to your account</CardTitle>
+        <CardTitle>Update  your account</CardTitle>
         <CardDescription>
-          Enter your details below to Register
+          Enter your details below to Update
         </CardDescription>
-        <CardAction>
-          <Button
-            onClick={() => nav(-1)}
-            variant="link">Login</Button>
-        </CardAction>
+        
       </CardHeader>
       <CardContent>
 
@@ -57,23 +49,11 @@ export default function Register() {
           initialValues={{
             fullname: '',
             email: '',
-            password: '',
             image: '',
             imageReview: ''
           }}
           onSubmit={async (val) => {
-  const formData = new FormData();
-  formData.append('fullname', val.fullname);
-  formData.append('email', val.email);
-  formData.append('password', val.password);
-  formData.append('image', val.image);
-  try {
-    await registerUser(formData).unwrap();
-    toast.success('Registration successful');
-    setTimeout(() => nav(-1), 1500);  // ✅ wait for toast to show
-  } catch (error) {
-    toast.error(error?.data?.message || 'Something went wrong');  // ✅
-  }
+  
 }}
 
           validationSchema={registerSchema}
@@ -113,29 +93,7 @@ export default function Register() {
                 </div>
 
 
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
-                  </div>
-                  <div className="relative">
-                    <Input
-                      name='password'
-                      onChange={handleChange}
-                      value={values.password}
-                      type={isVisible ? 'text' : 'password'} placeholder='Password' className='pr-9' />
-                    <Button
-                      type='button'
-                      variant='ghost'
-                      size='icon'
-                      onClick={() => setIsVisible(prevState => !prevState)}
-                      className='text-muted-foreground focus-visible:ring-ring/50 absolute inset-y-0 right-0 rounded-l-none hover:bg-transparent'
-                    >
-                      {isVisible ? <EyeIcon /> : <EyeOffIcon />}
-                      <span className='sr-only'>{isVisible ? 'Hide password' : 'Show password'}</span>
-                    </Button>
-                  </div>
-                  {errors.password && touched.password && <p className="text-destructive">{errors.password}</p>}
-                </div>
+                
 
 
                 <div className="grid gap-2">
@@ -159,11 +117,11 @@ export default function Register() {
                 </div>
 
 
-                <Button
+                {/* <Button
                   disabled={isLoading}
                   type="submit" className="w-full">
                   {isLoading ? <Spinner /> : 'Register'}
-                </Button>
+                </Button> */}
 
 
 

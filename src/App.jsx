@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './features/home/Home.jsx'
 import RootLayout from './components/RootLayout'
 import Login from './features/home/auth/Login.jsx'
+import Register from './features/home/auth/Register.jsx'
 
 export default function App() {
 
@@ -19,6 +20,14 @@ export default function App() {
 },{
   path:'login',
   element:<Login/>
+},
+{
+  path:'register',
+  element:<Register/>
+},
+{
+  path:'profile',
+  element:<UserProfile/>
 }
 
   ]

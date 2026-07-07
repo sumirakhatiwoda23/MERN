@@ -16,6 +16,9 @@ import * as Yup from 'yup';
 import { useLoginUserMutation } from "./authApi"
 import { Spinner } from "@/components/ui/spinner"
 import { toast } from "sonner"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { setUser } from "../user/userSlice"
 
 
 export const loginSchema = Yup.object({
@@ -27,6 +30,8 @@ export const loginSchema = Yup.object({
 export default function Login() {
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const [isVisible, setIsVisible] = useState(false);
+  const dispatch = useDispatch();
+  const nav=useNavigate();
 
   return (
     <Card className="w-full max-w-sm">
@@ -36,7 +41,9 @@ export default function Login() {
           Enter your email below to login to your account
         </CardDescription>
         <CardAction>
-          <Button variant="link">Sign Up</Button>
+          <Button 
+          onClick={()=>nav('/register')}
+          variant="link">Sign Up</Button>
         </CardAction>
       </CardHeader>
       <CardContent>
@@ -46,20 +53,25 @@ export default function Login() {
             email: '',
             password: ''
           }}
-          onSubmit={async (val) => {
-            try {
-              await loginUser(val).unwrap();
-              toast.success('Login successful');
-            } catch (err) {
-              toast.error(err.data.message);
-            }
+        onSubmit={async (val) => {
+  try {
+    const response=await loginUser(val).unwrap();
 
-          }}
+    dispatch(setUser(response));
+    
+    toast.success('Login successful');
+    nav(-1);
+
+  } catch (err) {
+    const msg = err?.data?.message ?? err?.error ?? 'Something went wrong';
+    toast.error(msg);
+  }
+}}
 
           validationSchema={loginSchema}
         >
 
-          {({ values, errors, touched, handleChange, handleSubmit, }) => (
+          {({ values, errors, touched, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
 
