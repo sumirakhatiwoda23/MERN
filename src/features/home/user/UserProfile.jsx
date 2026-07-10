@@ -10,29 +10,43 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Formik } from "formik"
+import { useGetProfileQuery, useUpdateUserMutation } from './userApi.js'
 
 import * as Yup from 'yup';
 
 import { useNavigate } from "react-router-dom"
 import { Spinner } from "@/components/ui/spinner"
 import { toast } from "sonner"
+import { useSelector } from "react-redux"
+import { base } from "@/app/mainApi.js"
 // import { useRegisterUserMutation } from "./authApi"
 
 
 
-export const registerSchema = Yup.object({
+export const updateSchema = Yup.object({
   fullname: Yup.string().min(4, 'Fullname must be at least 4 characters').max(40, 'Fullname must be at most 40 characters').required('Fullname is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   image: Yup.mixed().test('file Type', 'Unsupported file', (val) => {
-    return val && ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(val.type)
+    if(!val) return true; // Allow empty value
+    return  ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(val.type)
   })
 });
 
 
 export default function UserProfile() {
 
+    const {user}=useSelector((state)=> state.userSlice);
+
 
   const nav = useNavigate();
+    const [updateUser,{ isLoading:updateLoading }] = useUpdateUserMutation();
+  
+
+const { isLoading, data, error } = useGetProfileQuery(user?.token);
+  if (isLoading) return <p>Loading...</p>
+  if (error) return <p>{error.data?.message}</p>
+
+
 
   return (
     <Card className="w-full max-w-sm">
@@ -47,16 +61,35 @@ export default function UserProfile() {
 
         <Formik
           initialValues={{
-            fullname: '',
-            email: '',
+            fullname: data.fullname,
+            email: data.email,
             image: '',
-            imageReview: ''
+            imageReview: data.image
           }}
           onSubmit={async (val) => {
-  
+  const formData = new FormData();
+    formData.append('fullname', val.fullname);
+    formData.append('email', val.email);
+    if(val.image){
+        formData.append('image', val.image);
+    }
+
+            try {
+                await updateUser ({
+                    body: formData,
+                    token: user.token
+
+                }) .unwrap();
+                toast.success('Profile updated successfully');
+                nav(-1);
+                
+            } catch (err) {
+                toast.error(err.data.message );
+                
+            }
 }}
 
-          validationSchema={registerSchema}
+          validationSchema={updateSchema}
         >
 
           {({ values, errors, touched, handleChange, handleSubmit, setFieldValue }) => (
@@ -112,16 +145,24 @@ export default function UserProfile() {
                     placeholder="image"
 
                   />
-                  {values.imageReview && !errors.image && <img src={values.imageReview} alt={values.fullname} />}
-                  {errors.image && touched.image && <p className="text-destructive">{errors.image}</p>}
+                 {values.imageReview && !errors.image && 
+  <img
+    src={values.image ? values.imageReview : `${base}/${values.imageReview}`}
+    alt={values.fullname}
+  />
+}
+
+{errors.image && touched.image && 
+  <p className="text-destructive">{errors.image}</p>
+}
                 </div>
 
 
-                {/* <Button
-                  disabled={isLoading}
+                <Button
+                  disabled={updateLoading}
                   type="submit" className="w-full">
-                  {isLoading ? <Spinner /> : 'Register'}
-                </Button> */}
+                  {updateLoading ? <Spinner /> : 'Update Profile'}
+                </Button>
 
 
 

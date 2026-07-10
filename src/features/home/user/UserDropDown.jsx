@@ -10,8 +10,9 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-import { useGetProfileQuery } from './userApi.js'
+import { useGetProfileQuery} from './userApi.js'
 import { base } from '@/app/mainApi.js'
+import { useNavigate } from 'react-router'
 
 const listItems = [
   {
@@ -71,6 +72,7 @@ export default function UserDropDown({ user }) {
                 case 'Sign Out':
                   break;
             }}}
+
             key={index}>
               <item.icon />
               <span className='text-popover-foreground'>{item.property}</span>

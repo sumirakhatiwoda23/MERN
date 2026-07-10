@@ -5,6 +5,7 @@ import Home from './features/home/Home.jsx'
 import RootLayout from './components/RootLayout'
 import Login from './features/home/auth/Login.jsx'
 import Register from './features/home/auth/Register.jsx'
+import UserProfile from './features/home/user/UserProfile.jsx'
 
 export default function App() {
 
@@ -28,7 +29,8 @@ export default function App() {
 {
   path:'profile',
   element:<UserProfile/>
-}
+},
+
 
   ]
 }
