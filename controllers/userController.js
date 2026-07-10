@@ -20,19 +20,24 @@ export const updateUser = async (req, res) => {
   try {
 
     const isExist = await User.findById(req.userId);
+
     isExist.fullname = fullname || isExist.fullname;
     isExist.email = email || isExist.email;
-    if(req.imagePath){
-      fs.unlink(`./uploads/${isExist.image}`,(err)=>{
-        if(err){
+    if (req.imagePath) {
+      fs.unlink(`./uploads/${isExist.image}`, async (err) => {
+        if (err) {
           return res.status(500).json({
             message: err.message
           });
         }
-      }) 
-      isExist.image = req.imagePath;
+
+        isExist.image = req.imagePath;
+        await isExist.save();
+      })
+
+    } else {
+      await isExist.save();
     }
-   await isExist.save();
 
     return res.status(200).json({ message: "User updated" });
   } catch (err) {
