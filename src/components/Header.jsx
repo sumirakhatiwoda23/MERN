@@ -17,10 +17,10 @@ export default function Header() {
         ) : (
           <>
             <NavLink to="/login">
-              <Button variant="outline">Login</Button>
+              <Button variant="outline" className={'bg-none'}>Login</Button>
             </NavLink>
 
-            <NavLink to="/signup">
+            <NavLink to={'/register'}>
               <Button className="bg-blue-500">Sign Up</Button>
             </NavLink>
           </>

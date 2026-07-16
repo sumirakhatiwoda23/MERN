@@ -1,4 +1,4 @@
-import { UserIcon, SettingsIcon, BellIcon, LogOutIcon, CreditCardIcon } from 'lucide-react'
+import { UserIcon, SettingsIcon, BellIcon, LogOutIcon, CreditCardIcon, PanelBottomDashed, PanelBottomDashedIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -13,24 +13,38 @@ import {
 import { useGetProfileQuery} from './userApi.js'
 import { base } from '@/app/mainApi.js'
 import { useNavigate } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { removeUser } from './userSlice.js'
 
-const listItems = [
+const userItems = [
   {
     icon: UserIcon,
     property: 'Profile'
   },
-  {
-    icon: SettingsIcon,
-    property: 'Settings'
-  },
-  {
-    icon: CreditCardIcon,
-    property: 'Billing'
-  },
+
   {
     icon: BellIcon,
     property: 'Notifications'
   },
+  {
+    icon: LogOutIcon,
+    property: 'Sign Out'
+  }
+]
+const adminItems = [
+  {
+    icon: UserIcon,
+    property: 'Profile'
+  },
+
+  {
+      icon: PanelBottomDashedIcon,
+      property: 'Admin Panel'
+    },
+    {
+      icon: BellIcon,
+      property: 'Notifications'
+    },
   {
     icon: LogOutIcon,
     property: 'Sign Out'
@@ -41,7 +55,10 @@ const listItems = [
 
 
 export default function UserDropDown({ user }) {
+   
+    const menuItems=user.role==='admin'?adminItems:userItems;
     const nav=useNavigate();
+    const dispatch=useDispatch();
   const { isLoading, data, error } = useGetProfileQuery(user?.token);
   if (isLoading) return <p>Loading...</p>
   if (error) return <p>{error.data?.message}</p>
@@ -56,20 +73,22 @@ export default function UserDropDown({ user }) {
       <DropdownMenuContent className='w-56'>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuGroup>
-          {listItems.map((item, index) => (
+          {menuItems.map((item, index) => (
             <DropdownMenuItem
             onClick={()=>{
                 switch (item.property) {
                   case 'Profile':
                     nav('/profile')
                     break;
-                    case 'Settings':    
-                    break;
+                    case 'Admin Panel':
+                        nav('/admin')
+                        break;
                     case 'Billing':
                       break;    
                 case 'Notifications':
                   break;    
                 case 'Sign Out':
+                    dispatch(removeUser())
                   break;
             }}}
 
