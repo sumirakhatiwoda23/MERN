@@ -22,3 +22,11 @@ export const userCheck = (req, res, next) => {
     }
 
 }
+
+export const adminCheck = (req, res, next) => {
+    if (req.userRole !== 'admin') return res.status(403).json({
+        message: "Forbidden"
+       
+    });
+    next();
+}
