@@ -9,6 +9,9 @@ import UserProfile from './features/home/user/UserProfile.jsx'
 import AdminPage from './features/home/admin/AdminPage.jsx'
 import Add from './features/home/admin/form/Add.jsx'
 import Edit from './features/home/admin/form/Edit.jsx'
+import ProductDetail from './features/home/products/productDetail.jsx'
+import CartPage from './features/cart/CartPage.jsx'
+import OrderPage from './features/order/OrderPage.jsx'
 
 export default function App() {
 
@@ -33,6 +36,7 @@ export default function App() {
   path:'profile',
   element:<UserProfile/>
 },
+
 {
   path:'admin',
   element:<AdminPage/>
@@ -43,8 +47,20 @@ export default function App() {
 
 },
 {
-  path:'admin/form/edit',
+  path:'admin/form/edit/:id',
   element:<Edit/>
+},
+{
+  path:'product/:id',
+  element:<ProductDetail/>
+},
+{
+path:'cart',
+element:<CartPage/>
+},
+{
+  path:'orders',
+  element:<OrderPage/>
 }
 
   ]

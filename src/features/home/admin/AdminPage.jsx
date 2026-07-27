@@ -58,7 +58,10 @@ export default function AdminPage() {
                   <TableCell>{item.category}</TableCell>
                   <TableCell>{item.brand}</TableCell>
                   <TableCell>
-                    <Button variant="outline">
+                    <Button 
+                    onClick={() => nav(`/admin/form/edit/${item._id}`)}
+                    
+                    variant="outline">
                       <EditIcon />
                     </Button>
                   </TableCell>
