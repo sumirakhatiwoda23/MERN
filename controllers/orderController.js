@@ -4,7 +4,7 @@ export const getOrders = async (req, res) => {
   const id = req.userId;
   const role = req.userRole;
   try {
-    if (role !== "admin") {
+    if (role === "admin") {
       const orders = await Order.find({}).populate([
         {
           path: "userId",
