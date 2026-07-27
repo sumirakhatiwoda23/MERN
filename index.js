@@ -22,7 +22,7 @@ dotenv.config({});
 
 app.use(cors(
   {
-    origin:['http://localhost:5173'],
+    origin:['http://localhost:5173','https://mern-2f248yn8v-sumirra-khatiwodas-projects.vercel.app'],
   }
 ));
 app.use(limiter);
