@@ -140,18 +140,16 @@ export const deleteProduct = async (req, res) => {
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     await product.deleteOne();
-    fs.unlink(`./uploads/${product.image}`, async (err) => {
-      if (err) {
-        return res.status(500).json({
-          message: err.message
-        })
-      }
-      await product.deleteOne();
-      return res.status(200).json({
-        message: "Product deleted"
-      });
-    })
 
+    fs.unlink(`./uploads/${product.image}`, (err) => {
+      if (err) {
+        console.error("Failed to delete image file:", err.message);
+      }
+    });
+
+    return res.status(200).json({
+      message: "Product deleted"
+    });
 
   } catch (err) {
 
