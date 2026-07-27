@@ -21,10 +21,10 @@ const userItems = [
     icon: UserIcon,
     property: 'Profile'
   },
-{
-     icon:LucideListOrdered,
-     property:'Orders'
-},
+  {
+    icon: LucideListOrdered,
+    property: 'Orders'
+  },
   {
     icon: BellIcon,
     property: 'Notifications'
@@ -39,29 +39,29 @@ const adminItems = [
     icon: UserIcon,
     property: 'Profile'
   },
-
   {
-      icon: PanelBottomDashedIcon,
-      property: 'Admin Panel'
-    },
-    {
-      icon: BellIcon,
-      property: 'Notifications'
-    },
+    icon: LucideListOrdered,
+    property: 'Orders'
+  },
+  {
+    icon: PanelBottomDashedIcon,
+    property: 'Admin Panel'
+  },
+  {
+    icon: BellIcon,
+    property: 'Notifications'
+  },
   {
     icon: LogOutIcon,
     property: 'Sign Out'
   }
 ]
 
-
-
-
 export default function UserDropDown({ user }) {
-   
-    const menuItems=user.role==='admin'?adminItems:userItems;
-    const nav=useNavigate();
-    const dispatch=useDispatch();
+
+  const menuItems = user.role === 'admin' ? adminItems : userItems;
+  const nav = useNavigate();
+  const dispatch = useDispatch();
   const { isLoading, data, error } = useGetProfileQuery(user?.token);
   if (isLoading) return <p>Loading...</p>
   if (error) return <p>{error.data?.message}</p>
@@ -78,25 +78,25 @@ export default function UserDropDown({ user }) {
         <DropdownMenuGroup>
           {menuItems.map((item, index) => (
             <DropdownMenuItem
-            onClick={()=>{
+              onClick={() => {
                 switch (item.property) {
                   case 'Profile':
                     nav('/profile')
                     break;
-                    case 'Admin Panel':
-                        nav('/admin')
-                        break;
-                    case 'Orders':
-                      nav('/orders')
-                      break;    
-                case 'Notifications':
-                  break;    
-                case 'Sign Out':
+                  case 'Admin Panel':
+                    nav('/admin')
+                    break;
+                  case 'Orders':
+                    nav('/orders')
+                    break;
+                  case 'Notifications':
+                    break;
+                  case 'Sign Out':
                     dispatch(removeUser())
-                  break;
-            }}}
-
-            key={index}>
+                    break;
+                }
+              }}
+              key={index}>
               <item.icon />
               <span className='text-popover-foreground'>{item.property}</span>
             </DropdownMenuItem>
