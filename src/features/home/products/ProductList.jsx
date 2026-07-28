@@ -32,7 +32,7 @@ export default function ProductList() {
 
       {/* Products */}
       {!isLoading &&
-        data?.map((product) => (
+        data?.products.map((product) => (
           <Card
             key={product._id}
             onClick={() => nav(`/product/${product._id}`)}
