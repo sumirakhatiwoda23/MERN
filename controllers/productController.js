@@ -1,13 +1,75 @@
-import Product from "../models/Product.js";
+import Product, { brands, categories } from "../models/Product.js";
 import fs from 'fs';
 
+function convertQuery(queryObj) {
+  const mongoQuery = {};
+
+  for (const key in queryObj) {
+    const match = key.match(/(\w+)\[(\w+)\]/);
+
+    if (match) {
+      const field = match[1];      // e.g. rating
+      const operator = match[2];   // e.g. gt
+
+      if (!mongoQuery[field]) mongoQuery[field] = {};
+
+      mongoQuery[field][`$${operator}`] = Number(queryObj[key]);
+    } else {
+      mongoQuery[key] = queryObj[key];
+    }
+  }
+
+  return mongoQuery;
+}
 
 export const getProducts = async (req, res) => {
   try {
 
-    const products = await Product.find({});
-    return res.status(200).json(products);
+    const excludedFields = ['search', 'sort', 'fields', 'page', 'limit'];
 
+    const queryObj = { ...req.query };
+    excludedFields.forEach(el => delete queryObj[el]);
+
+    // console.log(queryObj);
+    // { 'price[lt]': '3000' } {price: { $lt: 3000 }}
+    const mongoQuery = convertQuery(queryObj);
+    const query = Product.find(mongoQuery);
+
+    if (req.query.search) {
+      const search = req.query.search;
+
+      if (categories.some((n) => n.toLowerCase().includes(search.toLowerCase()))) {
+        query.find({ category: { $regex: search, $options: "i" } });
+      } else if (brands.some((n) => n.toLowerCase().includes(search.toLowerCase()))) {
+        query.find({ brand: { $regex: search, $options: "i" } });
+      } else {
+        query.find({ title: { $regex: search, $options: "i" } });
+      }
+    }
+
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(' ');
+      query.sort(sortBy);
+    }
+
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
+      query.select(fields);
+    }
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const totalCount = await Product.countDocuments(mongoQuery);
+    const numOfPages = Math.ceil(totalCount / limit);
+
+    const products = await query.skip(skip).limit(limit);
+
+    return res.status(200).json({
+      numOfPages,
+      products
+    });
 
   } catch (err) {
     return res.status(400).json({
@@ -16,30 +78,22 @@ export const getProducts = async (req, res) => {
   }
 }
 
-
 export const getProduct = async (req, res) => {
-
-
   try {
     const product = await Product.findById(req.productId);
     if (!product) return res.status(404).json({ message: "Product not found" });
     return res.status(200).json(product);
   } catch (err) {
-
     return res.status(400).json({
       message: err.message
     })
   }
-
 }
 
-
 export const createProduct = async (req, res) => {
-
   const { title, description, price, category, brand, stock } = req.body || {};
 
   try {
-
     await Product.create({
       title,
       description,
@@ -53,30 +107,24 @@ export const createProduct = async (req, res) => {
       message: "Product created"
     });
 
-
   } catch (err) {
-
     fs.unlink(`./uploads/${req.imagePath}`, (imageErr) => {
       if (imageErr) {
         return res.status(500).json({
           message: imageErr.message
         })
       }
-
       return res.status(400).json({
         message: err.message
       })
     })
-
   }
-
 }
 
 export const updateProduct = async (req, res) => {
   const { title, description, price, category, brand, stock } = req.body || {};
 
   try {
-
     const isExist = await Product.findById(req.productId);
     if (!isExist) return res.status(404).json({ message: "Product not found" });
 
@@ -87,9 +135,7 @@ export const updateProduct = async (req, res) => {
     isExist.brand = brand || isExist.brand;
     isExist.stock = stock || isExist.stock;
 
-
     if (req.imagePath) {
-
       fs.unlink(`./uploads/${isExist.image}`, async (err) => {
         if (err) return res.status(500).json({
           message: err.message
@@ -99,19 +145,13 @@ export const updateProduct = async (req, res) => {
         return res.status(200).json({
           message: "Product updated"
         });
-
       });
-
     } else {
-
       await isExist.save();
       return res.status(200).json({
         message: "Product updated"
       });
-
     }
-
-
 
   } catch (err) {
     if (req.imagePath) {
@@ -121,7 +161,6 @@ export const updateProduct = async (req, res) => {
             message: imageErr.message
           })
         }
-
         return res.status(400).json({
           message: err.message
         })
@@ -143,16 +182,16 @@ export const deleteProduct = async (req, res) => {
 
     fs.unlink(`./uploads/${product.image}`, (err) => {
       if (err) {
-        console.error("Failed to delete image file:", err.message);
+        return res.status(500).json({
+          message: err.message
+        })
       }
-    });
-
-    return res.status(200).json({
-      message: "Product deleted"
-    });
+      return res.status(200).json({
+        message: "Product deleted"
+      });
+    })
 
   } catch (err) {
-
     return res.status(400).json({
       message: err.message
     })
