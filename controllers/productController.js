@@ -1,3 +1,4 @@
+import strict from "assert/strict";
 import Product, { brands, categories } from "../models/Product.js";
 import fs from 'fs';
 
@@ -63,6 +64,11 @@ export const getProducts = async (req, res) => {
 
     const totalCount = await Product.countDocuments(mongoQuery);
     const numOfPages = Math.ceil(totalCount / limit);
+
+
+
+
+
 
     const products = await query.skip(skip).limit(limit);
 
@@ -137,9 +143,13 @@ export const updateProduct = async (req, res) => {
 
     if (req.imagePath) {
       fs.unlink(`./uploads/${isExist.image}`, async (err) => {
-        if (err) return res.status(500).json({
-          message: err.message
-        })
+        // Ignore "file not found" errors — the old image may already be
+        // missing/moved, but that shouldn't block saving the new one.
+        if (err && err.code !== 'ENOENT') {
+          return res.status(500).json({
+            message: err.message
+          });
+        }
         isExist.image = req.imagePath;
         await isExist.save();
         return res.status(200).json({
@@ -181,7 +191,7 @@ export const deleteProduct = async (req, res) => {
     await product.deleteOne();
 
     fs.unlink(`./uploads/${product.image}`, (err) => {
-      if (err) {
+      if (err && err.code !== 'ENOENT') {
         return res.status(500).json({
           message: err.message
         })

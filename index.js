@@ -10,25 +10,29 @@ import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: "Too many requests from this IP, please try again after 15 minutes"
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+//   message: "Too many requests from this IP, please try again after 15 minutes"
+// });
+// app.use(limiter);
 
 dotenv.config({});
+app.use(cookieParser());
 
 app.use(cors({
+  credentials:true,
+  
   origin: [
     'http://localhost:5173',
     'https://mern-gamma-bice.vercel.app'
   ],
 }));
 
-app.use(limiter);
 // app.use(mongoSanitize());
 app.use(express.json());
 app.use(helmet({
