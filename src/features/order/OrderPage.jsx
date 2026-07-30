@@ -1,5 +1,5 @@
-import { Avatar, AvatarImage, AvatarFallback} from "@/components/ui/avatar";
-import { Card,CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { base } from "@/app/mainApi";
@@ -9,15 +9,19 @@ import { useGetOrdersQuery } from "./orderApi";
 export default function OrderPage() {
 
   const { user } = useSelector((state) => state.userSlice);
-  const { isLoading, error, data: orders } = useGetOrdersQuery(user.token);
+  const { isLoading, error, data: orders } = useGetOrdersQuery(user?.token, {
+    skip: !user?.token,
+  });
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.data?.message}</p>;
+
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6 ">
 
       <h1 className="text-3xl font-bold">My Orders</h1>
 
-      {orders.map((order) => (
+      {orders?.map((order) => (
         <Card key={order._id} className="shadow-md">
 
           {/* Header */}
@@ -26,18 +30,18 @@ export default function OrderPage() {
             {/* User Info */}
             <div className="flex items-center gap-4">
               <Avatar>
-                <AvatarImage src={`${base}/${order.userId.image}`} />
+                <AvatarImage src={`${base}/${order.userId?.image}`} />
                 <AvatarFallback>
-                  {order.userId.fullname?.charAt(0)}
+                  {order.userId?.fullname?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
 
               <div>
                 <p className="font-semibold">
-                  {order.userId.fullname}
+                  {order.userId?.fullname}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {order.userId.email}
+                  {order.userId?.email}
                 </p>
               </div>
             </div>
@@ -61,7 +65,7 @@ export default function OrderPage() {
           {/* Products */}
           <CardContent className="space-y-4">
 
-            {order.products.map((item) => {
+            {order.products?.map((item) => {
               const product = item.productId;
               return (
                 <div
@@ -71,20 +75,20 @@ export default function OrderPage() {
 
                   {/* Image */}
                   <img
-                    src={`${base}/${product.image}`}
+                    src={`${base}/${product?.image}`}
                     className="w-20 h-20 object-cover rounded-md border"
-                    alt={product.title}
+                    alt={product?.title}
                   />
 
                   {/* Info */}
                   <div className="flex-1">
 
                     <h2 className="font-semibold">
-                      {product.title}
+                      {product?.title}
                     </h2>
 
                     <p className="text-sm text-muted-foreground">
-                      {product.category} • {product.brand}
+                      {product?.category} • {product?.brand}
                     </p>
 
                     <p className="text-sm text-gray-500">
@@ -95,10 +99,10 @@ export default function OrderPage() {
                   {/* Price */}
                   <div className="text-right">
                     <p className="font-medium">
-                      Rs {product.price}
+                      Rs {product?.price}
                     </p>
                     <p className="text-sm text-gray-500">
-                      Rs {product.price * item.quantity}
+                      Rs {(product?.price || 0) * item.quantity}
                     </p>
                   </div>
 

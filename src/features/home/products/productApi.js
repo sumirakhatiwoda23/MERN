@@ -6,14 +6,15 @@ const productApi = mainApi.injectEndpoints({
     endpoints: (builder) => ({
 
         getProducts: builder.query({
-            query: () => ({
+            query: (query) => ({
                 url: '/products',
-                method: 'GET'
+                method: 'GET',
+                params: query
             }),
             providesTags: (result) =>
-                result
+                result?.products
                     ? [
-                        ...result.map(({ _id }) => ({ type: 'Product', id: _id })),
+                        ...result.products.map(({ _id }) => ({ type: 'Product', id: _id })),
                         { type: 'Product', id: 'LIST' },
                     ]
                     : [{ type: 'Product', id: 'LIST' }],
